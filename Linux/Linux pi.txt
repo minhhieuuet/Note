@@ -1,0 +1,11 @@
+cd :change directory
+mkdir: make directory
+pwd: print working directory
+ls: list
+unzip: unzip file zip
+tar -xvzf: unzip file tgz gz
+gcc -o: compiler
+./ name  Run program on Terminal
+cp					:copy
+cp -r					:copy directory
+mv move 					:  rename

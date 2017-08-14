@@ -1,0 +1,178 @@
+﻿Document.write("    "); In ra màn hình
+document.getElementById(__ID__).innerHTML="_____"; Thay thế thẻ có ID bằng--
+---------------------------------------------------------------------------------------------------------
+độ dài string
+
+độ dài = tên string.length
+
+
+var str = "Please locate where 'locate' occurs!";
+var pos = str.indexOf("locate");
+Vị trí của locate trong string ( vị trí của locate đầu tiên )
+
+
+var str = "Please locate where 'locate' occurs!";
+var pos = str.lastIndexOf("locate");
+Vị trí của "locate" cuối cùng 
+
+var str = "Please locate where 'locate' occurs!";
+var pos = str.search("locate");
+Tìm vị trí của "locate"
+
+There are 3 methods for extracting a part of a string:
+	str.slice(start, end):  Cắt chuỗi   (Lấy đoạn kí tự đã chọn)
+	str.slice(end): Cắt bỏ từ kí tự 0 đến end
+		Cấu trúc: str.slice(kí tự đầu tiên, kí tự cuối cùng)
+	str.substring(start, end)
+		Giống slice nhưng không chất nhận âm
+
+			
+	str.substr(start, length)
+		Cấu trúc: str.substring(kí tự đầu tiên, số kí tự cần lấy)
+	str.replace ( string cần thay thế, string thế vào)
+
+	str.replace( /string cấn thế/g, string thế vào) Khi cần replace nhiều string
+
+UPPER
+	var text1 = "Hello World!";       // String	
+	var text2 = text1.toUpperCase();  // text2 is text1 converted to upper
+LOWER
+	var text1 = "Hello World!";       // String
+	var text2 = text1.toLowerCase();  // text2 is text1 converted to lower
+CONCAT
+	Ex:
+	var text1 = "Hello";
+	var text2 = "World";
+	text3 = text1.concat(" ", text2);
+CHARCODEAT
+	The charCodeAt() method returns the unicode of the character at a given position in a string:
+	Ex:
+		var str = "HELLO WORLD";
+		tr.charCodeAt(0);         // returns 72
+STRING  AS AN ARRAY is Unsafe
+
+Use "number".toString(2 or 8 or 16)
+
+NaN  Not a number
+
+Converting a String to an Array
+	var txt = "a,b,c,d,e";   // String
+	txt.split(",");          // Split on commas  split: Tách chuỗi
+	txt.split(" ");          // Split on spaces
+	txt.split("|");          // Split on pipe
+---------------------------------------------------------------------------------------------------------
+Math.PI trả lại pi;
+Math.round(x)   return nearest integer
+Math.pow(x,y)  return x^y
+Math.sqrt(x)  return square root of x ( căn x)
+Math.abs(x)  return absolute value of x
+Math.ceil(x) return the value of nearest integer ( up)
+Math.floor(x) return the value of nearest integer (down)
+Math.sin(x)  cos  
+Math.min/max (a,b,c,d);
+Math.random();	return random number
+Math.E        // returns Euler's number
+Math.PI       // returns PI
+Math.SQRT2    // returns the square root of 2
+Math.SQRT1_2  // returns the square root of 1/2
+Math.LN2      // returns the natural logarithm of 2
+Math.LN10     // returns the natural logarithm of 10
+Math.LOG2E    // returns base 2 logarithm of E
+Math.LOG10E   // returns base 10 logarithm of E
+
+
+MATH
+abs(x)	Returns the absolute value of x
+acos(x)	Returns the arccosine of x, in radians
+asin(x)	Returns the arcsine of x, in radians
+atan(x)	Returns the arctangent of x as a numeric value between -PI/2 and PI/2 radians
+atan2(y, x)	Returns the arctangent of the quotient of its arguments
+ceil(x)	Returns the value of x rounded up to its nearest integer
+cos(x)	Returns the cosine of x (x is in radians)
+exp(x)	Returns the value of Ex
+floor(x)	Returns the value of x rounded down to its nearest integer
+log(x)	Returns the natural logarithm (base E) of x
+max(x, y, z, ..., n)	Returns the number with the highest value
+min(x, y, z, ..., n)	Returns the number with the lowest value
+pow(x, y)	Returns the value of x to the power of y
+random()	Returns a random number between 0 and 1
+round(x)	Returns the value of x rounded to its nearest integer
+sin(x)	Returns the sine of x (x is in radians)
+sqrt(x)	Returns the square root of x
+tan(x)	Returns the tangent of an angle
+---------------------------------------------------------------------------------------------------------
+RANDOM
+
+Math.floor(Math.random() * x);     // returns a number between 0 and x
+Math.floor(Math.random() * x) + y;  // returns a number between y and x
+
+---------------------------------------------------------------------------------------------------------
+DATE
+
+Date();  return Date (string)
+
+
+//****JavaScript Date Formats
+A JavaScript date can be written as a string:
+
+Sat Dec 17 2016 21:49:32 GMT+0700 (SE Asia Standard Time)
+
+or as a number:
+
+1481986172663
+Dates written as numbers, specifies the number of milliseconds since January 1, 1970, 00:00:00.
+
+CREAT DATE OBJECT
+
+new Date()
+Using new Date(number), creates a new date object as zero time plus the number.
+\Using new Date(7 numbers), creates a new date object with the specified date and time:
+		var d = new Date(99, 5, 24);
+toUTCString() \\\\method converts a date to a UTC string (a date display standard).
+
+
+getDate()	Get the day as a number (1-31)
+getDay()	Get the weekday as a number (0-6)
+getFullYear()	Get the four digit year (yyyy)
+getHours()	Get the hour (0-23)
+getMilliseconds()	Get the milliseconds (0-999)
+getMinutes()	Get the minutes (0-59)
+getMonth()	Get the month (0-11)
+getSeconds()	Get the seconds (0-59)
+getTime()	Get the time (milliseconds since January 1, 1970)
+Date.parse() //returns the number of milliseconds between the date and January 1, 1970:
+
+
+____________________________________________________________________
+
+ARRAYS
+
+Creat Array
+
+var arrayname=["a","b"];
+or 
+
+var arrayname=new Array("Saab","df");
+
+
+___________________________________________________________________
+ARRAY METHODs
+
+arrayname.join("*")  to string, add * between 
+
+arrayname.toString() converts to string
+
+arrayname.push("  ") Add an element to the end of the array
+return length of element
+
+arrayname.pop() delete the last element of the array
+arrayname.pop() return value of the last element
+
+arrayname.shift() delete the first element
+arrayname.shift() return value of the first element
+
+arrayname.unshift(" ") add an element on the first of the array 
+
+CHANGE ELEMENT
+
+delete arrayname[position]

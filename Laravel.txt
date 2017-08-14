@@ -1,0 +1,46 @@
+﻿Route
+
+Truyền giá trị cho view dựa vào route 
+Route::get('tên route',function(){
+return view('tên view',compact('tên biến');
+});
+
+-------------------------------------------------
+
+Lỗi trang login
+Làm theo form
+
+<form action="{!! route('postForm') !!}" method="POST">
+    <input type="hidden" name="_token" value="{!! csrf_token() !!}"/>
+    <input type="text" name="username" />
+    <input type="submit" />
+</form>
+
+
+-----------------------------------
+Truy cập thư mục trong view() không dùng / mà dùng .
+--------------------------
+Dùng href="{{asset('css/style.css')}}" trỏ sẵn vào public
+---------------------------
+trong view master
+Dùng include('tên view cần chọn') để add vào
+-----------------
+
+Truyền dữ liệu qua view
+
+return view('ten view',[ mảng]);
+//Làm việc với database
+
+Route::get('taobang',function(){
+	Schema::create('tên bảng',function($table){
+	$table->increments('id'); //Khóa chính là ID
+	
+	});
+	
+});
+
+Route::Get('suabang')
+
+Sửa bảng dùng Schema::table('tên bảng',function($table){
+	$table->dropColumn('tên cột cần xóa');
+});

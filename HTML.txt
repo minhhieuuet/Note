@@ -1,0 +1,246 @@
+﻿BÀI 1:
+*	<body bgcolor="Color code"> set màu nền
+	<body background="Ðường dẫn"> Set hình nền
+
+*	Thẻ <br> xuống dòng
+		Note: Muốn xuống dòng ko dùng Enter
+
+*	Thẻ <p> </p>tách đoạn  văn bản
+	thuộc tính của <p> quy định vị trí văn bản : 
+		align: left right center justify(căn đều)
+
+*	Thẻ <hr> kẻ đường thẳng
+	Thuộc tính của nó:
+		size ="pixel"
+		color
+		width="pixel"
+		align : 		vị trí left right .... 
+ 
+DANH SÁCH 
+*	Thẻ <ul></ul>,<li></li>
+	Danh sách không có trật tự : đầu dòng là núm tròn màu den
+
+*	Thẻ có trật tự: Sắp xếp theo 1 2 3 4 từ trên xuống dưới
+	<ol></ol>,<li></li>
+
+KÝ TỰ ÐỊNH DẠNG
+*  	Sử dụng cặp thẻ ? <pre></pre> Đúng như gõ word
+*	Các kiêu chữ trong HTML
+		<b></b> In đậm
+		<i></i> in nghiêng
+		<u></u> gạch chân
+		<s></s> gạch giữa
+12:56 PM 12/7/2016		<sub></sub> số mũ (trồi xuống)
+		<sup><sup> trồi lên
+ĐỊNH DẠNG FONT VÀ CỠ CHỮ
+* FONT:	Cặp thẻ <font></font> thuộc tính:
+		face : 	Kiểu chữ
+		size :	kích cỡ 1->7
+		color:	màu
+*KÍCH CỠ: Cặp thẻ  <h1> </h1> đến <h6></h6> : Thêm hiệu ứng in đậm và tự động xuống 		   dòng
+
+		align: vị trí Left right ....
+
+THẺ BỐ CỤC VÀ TRANG TRÍ
+* ĐƯA VÀO CENTER: Dùng cặp thẻ <center></center>
+*HIỆU ỨNG :
+	Cặp thẻ <blink></blink> : Hiệu ứng nhấp nháy					Không khả dụng trình duyệt hiện tại
+
+	Cặp thẻ <marquee></marquee> Mặc định tự di chuyển (Kiểu quảng cáo )
+		bgcolor: Cung cấp màu nền cho đối tượng được chọn
+		
+		width : Độ rộng của thẻ
+		
+		height : Chiều cao của thẻ
+		
+		bhavior :  scroll: Cuộn giống mặc định
+			alternate: Đập vào viền và quay trở lại
+		
+		direction:  Left right chuyển động sang trái phải
+			Up : Dưới lên trên
+			Down: trên xuống dưới
+		hspace : Tạo khoảng cách với bên ngoài theo chiều ngang
+		vspace : Tạo ra khoảng cách với đối tượng bên ngoài theo chiều dọc
+*TẠO LIÊN KẾT
+	Cặp thẻ <a></a>
+		href : Địa chỉ cần tới
+		target: Liên kết sẽ được mở ở Tab mới 	Target="_blank"
+
+		title : Mô tả liên kết khi trỏ chuột tới
+		
+		*name: 
+ĐÁNH DẤU: 
+	NỘI TRANG : 
+		<a name></a> 				
+		* <a name="Tên điểm đánh dấu">Điểm đánh dấu </a>
+		 	 Quay lai điểm đánh dấu:
+			<a href="# Tên điểm đánh dấu"> Tên đường trở về</a>
+	NGOẠI TRANG
+		*<a href="Tên file#Tên điểm đánh dấu">Tên hiển thị </a>
+ĐƯA ẢNH VÀO HTML
+	Thẻ <img>
+		src  Cung cấp đường dẫn của ảnh
+		width height (pixel)
+		alt Hiện tên khi chưa load xong
+		border = "pixel"Cung cấp đường viền cho ảnh
+		align Vị trí của ảnh (Không dùng được center)
+		vspace: Khoảng cách theo chiều dọc
+		hspace : Khoảng cách theo chiều ngang
+
+BẢNG
+	Sử dụng cặp thẻ 
+		<table></table>
+			width : độ rộng của bảng
+			height : chiều cao của bảng
+			bordercolor màu của bảng
+			align vị trí của bảng
+			cellpadding : đối tượng cách bốn phia (pixel)
+			cellspacing : độ rộng đường gân
+	Thẻ <tr> tạo hàng
+			tương tự
+			justify căn đều hai bên
+			valign : Vị trí của nội dung   middle top bottom
+	Thẻ <td> tạo cột
+			colspan gom cột trong một bảng 			
+			rowspan gom cột trong bảng 
+			
+FORM  12:01 PM 12/7/2016
+	Sử dụng thẻ <form>
+			name tên form
+			action hướng dữ liệu đến một đích nào đó
+			method quy định cách gửi dữ liệu trong form
+				
+	Thẻ <input>:  Type:kiểu 
+	Kiểu (text, password, checkbox)   
+			value giá trị hiện trong thẻ							size độ rộng
+			checked="checked" mặc định cheak 
+				
+	 Kiểu  <type=""radio"">
+			Lựa chọn một trong nhiều đối tượng (phải đặt tên giống nhau)
+	VD:  <input type="radio" name="sex">Nam<input type="radio" name="sex">Nữ
+		
+		file:  trường upload
+		button tạo nút
+		resetbutton  làm mới form
+		selectbox: Tạo danh sách đối tượng
+			Khai báo danh sách bằng cặp thẻ select
+				Mỗi đối tượng khai báo bằng thẻ option
+		<textarea></textarea> : Tạo một khung phản hồi
+			cols độ rộng
+			rows độ cao
+
+CSS
+
+
+	Nhúng CSS vào từng hàng
+		Tạo vùng làm việc style="      vùng làm việc     	" (vào thẻ hn)
+	Tạo một vùng làm việc trong thẻ head
+		Tạo cặp thẻ style dùng thuộc tính <style type="text/css">
+		
+c3: Tạo file .css
+	Trong < head> dùng <link rel="stylesheet" type="text/css" href="Lấy đường dẫn">
+
+MỘT SỐ THUỘC TÍNH FONT NỀN CSS
+
+	background-color: mã màu
+	background-image:url(địa chỉ);
+	background-repeat: quản lí lặp ảnh nền
+	background-attachment:	scroll: cuộn theo thanh cuộn
+				fixed  ảnh nền không bị cuộn theo
+	background-position: 	cách trái x cách trên
+			top, left.right,center
+
+FONT CHỮ TEX TRONG CSS
+	font-family quy định font chữ
+	font size : pixel
+	font-style: Kiểu chữ: Normal . Italic.oblique :in xiên
+	font-weight:độ đậm một kí tự
+
+	color : quy định màu chữ
+	letter-spacing: khoảng cách mỗi từ
+	word-spacing: khoảng cách giữa mỗi kí tự
+	text-indent: xx pixel   dòng đâu lùi xx pixel
+	text-align: left right center justyfy căn đều hai bên
+	text-decoration: line-through gạch giữa
+		        over line: gạch trên đầu
+		        under line: gạch dưới
+		        none: ko áp dụng
+	text-transform: đổi thành ...
+		thuộc tính:		uppercase  thành in hoa
+				lowercase chuyển thành in thường
+				capitallize  in hoa kí tự đầu tiên của từ 
+
+
+CLASS
+
+	đạt trong thẻ : <a class="tên">  gọi trong css :   a.tên
+ID
+	đạt id giống
+
+gọi 		vd:  ul li # "name"
+
+
+ĐIỀU KHIỂN HOVER
+
+	gọi hover : gọi thẻ a:hover
+	{
+		style
+	}	
+
+THUỘC TÍNH BOX MODEL
+	Khai báo một border 		 tên thẻ   { border-width:
+					border-color:
+					border-style: 8 kiểu
+					}
+						solid: viền liền
+						dotted: viền chấm đứt
+						dashed: viền gạch đứt
+						double: viền kép
+						groove: viền hằn
+						rid: viền nổi
+						inset: nội dung hằn sâu hơn
+						outset: viền nổi lên trên
+#### Viết tắt   border rộng___ màu___ kiểu; 
+
+	Thuộc tính ##   margin (Phần không gian ngoài )
+					margin-top: cách trên
+					margin-right: phải
+					margin-left: trái
+					margin-bottom: dưới
+		Khai báo tắt thuộc tính margen:
+					
+					margin _top_ right_ bottom_ left ;
+		Nếu trên=dưới  trái = phải khai báo
+					margin trên__phải
+		Nếu bốn bên bằng nhau 
+					margin giá trị
+
+
+
+	Thuộc tính Padding ( Phần không gian giữa viền và nồi dung)
+					padding  tương tự margin 
+
+	Thuôc định quy định kích cỡ và các thành phần trong web
+			  		width: độ rộng
+					height: chiều cao
+
+
+					Thuộc tính float: đưa đối tượng về biên trái	 hoặc phải 
+					
+						Đặt vào trong thẻ css thuộc tính float
+					Dùng thuộc tính clear:both;  ngăn không cho tràn lên;
+					
+
+	Thẻ <div>chia bố cục website
+
+Thẻ <abbr> giải thich một chữ
+Dấu phảy để chọn nhiều đối tượng 
+vd  table ,tr,td,th
+
+
+Z-index: Vị trí trog khong gian càng cao càng gần
+phải đi cùng với position:relative
+
+transition all time;  thời gian hiện đầy đủ background
+box-shadow: bóng
+border-radius: bo viền

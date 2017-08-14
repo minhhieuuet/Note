@@ -1,0 +1,24 @@
+﻿col-**-**
+** max=12
+xs phone
+sm tablet
+md desktop
+lg large screen
+
+Các thẻ :
+
+mark: highlight
+smail: Tạo chữ nhỏ
+<abbr title="World Health Organization">WHO</abbr> : ghi chú
+blockquote 
+footer: tác giả, nguồn
+code: hiển thị định dạng code 
+kbd : bôi đen <keyboard input>
+pre: giống pre của html hiện chình xác những gì trong thẻ
+table class="table"
+<tr>
+	<th>: Chỉ mục
+</tr>
+<tr>
+	<th>: Nội dung
+</tr>
