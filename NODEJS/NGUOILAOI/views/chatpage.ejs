@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Chat với người lạ</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="css/util.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="custom.css">
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+	<script type="text/javascript" src="socket.io/socket.io.js"></script>
+	<script>
+
+		var socket=io("https://tamsuvoinguoila.herokuapp.com/");
+		//bat su kien login fail
+		socket.on("server-send-login-failed",function(){
+			alert("Tên người dùng đã tồn tại!");
+			$("#loginBtn").attr('disabled',false);
+		});
+		//bat su kien login thanh cong va gui username
+		socket.on("server-send-username",function(data){
+			$("#loginForm").hide();
+			$("#chatForm").show(1000);
+			$("#name").append(data);
+		});
+
+		//Do danh sach useronline
+		socket.on("server-send-userarr",function(data){
+			$("#onlinelist").html("");
+			data.forEach(function(element){
+					
+					$("#onlinelist").append("<li><div class='chat-left-img'><img src='image/businessman.png'></div><div class='chat-left-detail'><p>"+element+"</p><span><i class='fa fa-circle' aria-hidden='true'></i> online</span></div></li>");
+
+					// <div class="hide" id="template">
+					// 	 <li>
+					// 		<div class="chat-left-img">
+					// 			<img src="image/businessman.png">
+					// 		</div>
+					// 		<div class="chat-left-detail">
+					// 			<p>luis yankee</p>
+					// 			<span><i class="fa fa-circle" aria-hidden="true"></i> online</span>
+					// 		</div>
+					// 	</li>
+					// 	</div>
+
+					console.log($("#template").html());
+
+
+			});
+		});
+
+		$(document).ready(function(){
+			$("#loginForm").show();
+			$("#chatForm").hide();
+			//Bat su kien login
+			$("#loginBtn").click(function(){
+				$("#loginBtn").attr('disabled',true);
+				$("#loginBtn").html("Xin đợi...");
+				socket.emit("client-send-username",$("#username").val());
+			});
+
+		});
+	</script>
+
+
+</head>
+<body>
+
+	<!-- Login -->
+	<div id="loginForm" class="limiter">
+		<div class="container-login100" style="background-image: url('images/bg-01.jpg');">
+			<div class="wrap-login100 p-l-110 p-r-110 p-t-62 p-b-33">
+				<form class="login100-form validate-form flex-sb flex-w">
+					<span class="login100-form-title p-b-53">
+						Chat với người lạ ...
+						<small style="font-size: 30px;">Đăng nhập</small>
+					</span>
+
+					<a href="#" class="btn-face m-b-20">
+						<i class="fa fa-facebook-official"></i>
+						Facebook
+					</a>
+
+					<a href="#" class="btn-google m-b-20">
+						<img src="images/icons/icon-google.png" alt="GOOGLE">
+						Google
+					</a>
+					</form>
+					<div class="p-t-31 p-b-9">
+						<span class="txt1">
+							Tên đăng nhập
+						</span>
+					</div>
+					<div class="wrap-input100 validate-input" data-validate = "Username is required">
+						<input id="username" class="input100" type="text" name="username" >
+						<span class="focus-input100"></span>
+					</div>
+					
+					
+					
+
+					
+
+					<!-- <div class="w-full text-center p-t-55">
+						<span class="txt2">
+							Not a member?
+						</span>
+
+						<a href="#" class="txt2 bo1">
+							Sign up now
+						</a>
+					</div> -->
+				
+
+				<div class="container-login100-form-btn m-t-17">
+						<button id="loginBtn" class="login100-form-btn">
+							Vào chat
+						</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+
+	<div id="dropDownSelect1"></div>
+	
+<!--===============================================================================================-->
+	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/bootstrap/js/popper.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/daterangepicker/moment.min.js"></script>
+	<script src="vendor/daterangepicker/daterangepicker.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/countdowntime/countdowntime.js"></script>
+<!--===============================================================================================-->
+	<script src="js/main.js"></script>
+
+
+
+
+	<!-- Chat page -->
+	<div id="chatForm" class="container main-section">
+		<div class="row">
+			<div class="col-md-3 col-sm-3 col-xs-12 left-sidebar">
+				<div class="input-group searchbox">
+					<input class="form-control" placeholder="Search" name="srch-term" id="srch-term" type="text">
+					<div class="input-group-btn">
+						<button class="btn btn-default search-icon" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+					</div>
+				</div>
+				<!-- Danh sach useronline -->
+				<div class="left-chat" >
+
+					<ul id="onlinelist">
+						
+						  
+					</ul>
+				</div>
+				<!--  -->
+			</div>
+
+			<div class="col-md-9 col-sm-9 col-xs-12 right-sidebar">
+				<!-- Ten username login -->
+				<div class="row">
+					<div class="col-md-12 right-header">
+						<div class="right-header-img">
+							<img src="image/businessman.png">
+						</div>
+						<div class="right-header-detail">
+							<p id="name"></p>
+							
+						</div>
+					</div>
+				</div>
+				<!-- ________________________ -->
+
+				<!-- Noi dung chat -->
+				<div class="row">
+					<div class="col-md-12 right-header-contentChat">
+						<ul>
+							<li>
+								<div class="rightside-left-chat">
+									<span><i class="fa fa-circle" aria-hidden="true"></i> joi chak <small>10:00 AM,Today</small> </span><br><br>
+									<p>Lorem ipsum dolor sit ameeserunt mollit anim id est laborum.
+									Lorem ipsum dolor sit ameeserunt mollit anim mollit anim laborum.
+									Lorem ipsum dolor sit ameeserunt mollit anim id est laborum.</p>
+								</div>
+							</li>
+							<li>
+								<div class="rightside-right-chat">
+									<span> <small>10:00 AM,Today</small>  nik minaj <i class="fa fa-circle" aria-hidden="true"></i></span><br><br>
+									<p>Lorem ipsum dolor sit ameeserunt mollit anim id est laborum.
+									Lorem ipsum dolor sit ameeserunt mollit anim id est laborum.</p>
+								</div>
+							</li>
+							
+						</ul>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12 right-chat-textbox">
+						<input type="text"><a href="#"><i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		$(document).ready(function(){
+	    	var height = $(window).height();
+	    	$('.left-chat').css('height', (height - 92) + 'px');
+	    	$('.right-header-contentChat').css('height', (height - 163) + 'px');
+	    });
+	</script>
+</body>
+</html>

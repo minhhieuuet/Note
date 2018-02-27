@@ -44,3 +44,5 @@ Route::Get('suabang')
 Sửa bảng dùng Schema::table('tên bảng',function($table){
 	$table->dropColumn('tên cột cần xóa');
 });
+	Đổi tên bảng dùng Schema::rename('tên bảng ban đầu','tên bảng mới');
+	Xóa bảng: Dùng Schema::drop('tên bảng');
