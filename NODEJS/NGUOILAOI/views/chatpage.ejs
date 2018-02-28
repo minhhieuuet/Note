@@ -35,7 +35,8 @@
 	<script type="text/javascript" src="socket.io/socket.io.js"></script>
 	<script>
 
-		var socket=io("https://tamsuvoinguoila.herokuapp.com/");
+			var socket=io("https://tamsuvoinguoila.herokuapp.com/");
+		// var socket=io("http://localhost:8080/");
 		//bat su kien login fail
 		socket.on("server-send-login-failed",function(){
 			alert("Tên người dùng đã tồn tại!");
@@ -55,22 +56,27 @@
 					
 					$("#onlinelist").append("<li><div class='chat-left-img'><img src='image/businessman.png'></div><div class='chat-left-detail'><p>"+element+"</p><span><i class='fa fa-circle' aria-hidden='true'></i> online</span></div></li>");
 
-					// <div class="hide" id="template">
-					// 	 <li>
-					// 		<div class="chat-left-img">
-					// 			<img src="image/businessman.png">
-					// 		</div>
-					// 		<div class="chat-left-detail">
-					// 			<p>luis yankee</p>
-					// 			<span><i class="fa fa-circle" aria-hidden="true"></i> online</span>
-					// 		</div>
-					// 	</li>
-					// 	</div>
-
-					console.log($("#template").html());
-
-
+					
 			});
+		});
+		//Nhan message
+		socket.on("server-send-mess",function(data){
+			if(data.s==1){
+				console.log(data);
+				 $("#messBox").append("<li style='font-weight:bold;color:"+data.color+"'><div class='rightside-left-chat'><span><i class='fa fa-circle' aria-hidden='true'></i> "+data.username+"<small> "+data.date+"</small> </span><br><br><p>"+data.mess+"</p></div></li>");
+				// <li>
+				// 				<div class="rightside-left-chat">
+				// 					<span><i class="fa fa-circle" aria-hidden="true"></i> joi chak <small>10:00 AM,Today</small> </span><br><br>
+				// 					<p>Lorem ipsum dolor sit ameeserunt mollit anim id est laborum.
+				// 					Lorem ipsum dolor sit ameeserunt mollit anim mollit anim laborum.
+				// 					Lorem ipsum dolor sit ameeserunt mollit anim id est laborum.</p>
+				// 				</div>
+				// 			</li>
+			}
+			else
+			{
+
+			}
 		});
 
 		$(document).ready(function(){
@@ -82,6 +88,9 @@
 				$("#loginBtn").html("Xin đợi...");
 				socket.emit("client-send-username",$("#username").val());
 			});
+				$("#sendMess").click(function(){
+					socket.emit("user-send-mess",$("#message").val());
+				});
 
 		});
 	</script>
@@ -120,22 +129,6 @@
 						<span class="focus-input100"></span>
 					</div>
 					
-					
-					
-
-					
-
-					<!-- <div class="w-full text-center p-t-55">
-						<span class="txt2">
-							Not a member?
-						</span>
-
-						<a href="#" class="txt2 bo1">
-							Sign up now
-						</a>
-					</div> -->
-				
-
 				<div class="container-login100-form-btn m-t-17">
 						<button id="loginBtn" class="login100-form-btn">
 							Vào chat
@@ -207,8 +200,8 @@
 				<!-- Noi dung chat -->
 				<div class="row">
 					<div class="col-md-12 right-header-contentChat">
-						<ul>
-							<li>
+						<ul id="messBox">
+							<!-- <li>
 								<div class="rightside-left-chat">
 									<span><i class="fa fa-circle" aria-hidden="true"></i> joi chak <small>10:00 AM,Today</small> </span><br><br>
 									<p>Lorem ipsum dolor sit ameeserunt mollit anim id est laborum.
@@ -222,14 +215,14 @@
 									<p>Lorem ipsum dolor sit ameeserunt mollit anim id est laborum.
 									Lorem ipsum dolor sit ameeserunt mollit anim id est laborum.</p>
 								</div>
-							</li>
+							</li> -->
 							
 						</ul>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-12 right-chat-textbox">
-						<input type="text"><a href="#"><i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+						<input id="message" type="text"><a style="cursor: pointer;" id="sendMess" ><i class="fa fa-arrow-right" aria-hidden="true"></i></a>
 					</div>
 				</div>
 			</div>
