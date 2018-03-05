@@ -10,8 +10,11 @@
 	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
 <!--===============================================================================================-->
+	<link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+	 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
 <!--===============================================================================================-->	
@@ -33,10 +36,28 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 	<script type="text/javascript" src="socket.io/socket.io.js"></script>
+	<link rel=stylesheet href="style.css">
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+	<audio id="audio" src="noti.mp3"></audio>
+	<!-- facebook script -->
+	<div id="fb-root"></div>
+	<script>(function(d, s, id) {
+	  var js, fjs = d.getElementsByTagName(s)[0];
+	  if (d.getElementById(id)) return;
+	  js = d.createElement(s); js.id = id;
+	  js.src = 'https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.12&appId=176178986467001&autoLogAppEvents=1';
+	  fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));</script>
+
+	<!--  -->
+
+
+
+
 	<script>
 
-			var socket=io("https://tamsuvoinguoila.herokuapp.com/");
-		// var socket=io("http://localhost:8080/");
+			// var socket=io("https://tamsuvoinguoila.herokuapp.com/");
+		    var socket=io("http://localhost:8080/");
 		//bat su kien login fail
 		socket.on("server-send-login-failed",function(){
 			alert("Tên người dùng đã tồn tại!");
@@ -46,55 +67,179 @@
 		socket.on("server-send-username",function(data){
 			$("#loginForm").hide();
 			$("#chatForm").show(1000);
-			$("#name").append(data);
+			$("#name").append(data.username);
+			$("#avatar").attr('src','image/'+data.gender+".png");
 		});
 
 		//Do danh sach useronline
 		socket.on("server-send-userarr",function(data){
-			$("#onlinelist").html("");
-			data.forEach(function(element){
+			
+			$("#countUser").html(data.length);
+			// $("#onlinelist").html("");
+			// data.forEach(function(element){
 					
-					$("#onlinelist").append("<li><div class='chat-left-img'><img src='image/businessman.png'></div><div class='chat-left-detail'><p>"+element+"</p><span><i class='fa fa-circle' aria-hidden='true'></i> online</span></div></li>");
+			// 		$("#onlinelist").append("<li><div class='chat-left-img'><img src='image/"+element.gender+".png'></div><div class='chat-left-detail'><p>"+element.username+"</p><span><i class='fa fa-circle' aria-hidden='true'></i> online</span></div><img style='float:right;margin-right:25px;line-height:5px;cursor:pointer' width = '50px' height='40px' src='http://www.sniperdecals.com/images/Fist.png'title='Đấm "+element.username+"' ></li>");
 
 					
-			});
+			// });
 		});
+		//Bat su kien nguoi la vao phong
+		socket.on("server-send-stranger",function(){
+			$("#messBox").html('');
+			$("#messBox").append('<div id="blink" class="blink"><span>Đang chờ người lạ ...</span></div>');
+			$("#blink").html("Người lạ đã được kết nối !<br> <a style='color:red;'>♥</a> Hãy nói gì đó <a style='color:red;'>♥</a> ");
+			$("#blink").css("color","green");
+			$("#message").prop("disabled",false);
+
+		});
+
+
 		//Nhan message
 		socket.on("server-send-mess",function(data){
-			if(data.s==1){
+			$("#blink").hide();
+			//Auto scroll xuong cuoi div khi nhan duoc message
+			$("#chatBox").animate({ scrollTop: $('#chatBox').prop("scrollHeight")}, 1000);
+			//Notification sound
+			$('#audio')[0].play();
+
+			if(data.username==$("#name").html()){
 				console.log(data);
 				 $("#messBox").append("<li style='font-weight:bold;color:"+data.color+"'><div class='rightside-left-chat'><span><i class='fa fa-circle' aria-hidden='true'></i> "+data.username+"<small> "+data.date+"</small> </span><br><br><p>"+data.mess+"</p></div></li>");
-				// <li>
-				// 				<div class="rightside-left-chat">
-				// 					<span><i class="fa fa-circle" aria-hidden="true"></i> joi chak <small>10:00 AM,Today</small> </span><br><br>
-				// 					<p>Lorem ipsum dolor sit ameeserunt mollit anim id est laborum.
-				// 					Lorem ipsum dolor sit ameeserunt mollit anim mollit anim laborum.
-				// 					Lorem ipsum dolor sit ameeserunt mollit anim id est laborum.</p>
-				// 				</div>
-				// 			</li>
+				
 			}
 			else
 			{
-
+				$("#messBox").append("<li style='font-weight:bold;color:"+data.color+"'><div class='rightside-right-chat'><span><i class='fa fa-circle' aria-hidden='true'></i> "+"Người lạ"+"<small> "+data.date+"</small> </span><br><br><p>"+data.mess+"</p></div></li>");
 			}
 		});
+		//Bat su kien disconnect
 
+		socket.on("user-send-disconnect",function(){
+			
+			$("#blink").show();
+			$("#blink").html("Cuộc trò chuyện đã kết thúc!!!<br>Đang chờ người lạ khác!!");
+
+			$("#blink").css('color','red');
+		});
+
+
+
+		// jquery
 		$(document).ready(function(){
+
+			
+
 			$("#loginForm").show();
 			$("#chatForm").hide();
+
+			$('[data-toggle="tooltip"]').tooltip();
+			$("#message").prop("disabled",true);
 			//Bat su kien login
 			$("#loginBtn").click(function(){
-				$("#loginBtn").attr('disabled',true);
-				$("#loginBtn").html("Xin đợi...");
-				socket.emit("client-send-username",$("#username").val());
-			});
-				$("#sendMess").click(function(){
-					socket.emit("user-send-mess",$("#message").val());
-				});
+				if($("#username").val()==""){
+					alert("Bạn cần nhập tên!");
+				}
+				else{
+					 if(!$('#gender_nam').is(":checked")&&!$('#gender_nu').is(":checked")&&!$('#gender_3d').is(":checked"))
+					{
+						alert("Bạn cần chọn giới tính !!")
+					}
+					else
+					{
 
+					var user_gender;
+					if($('#gender_nam').is(":checked")) {user_gender="nam";}
+					if($('#gender_nu').is(":checked")) {user_gender="nu";}
+					if($('#gender_3d').is(":checked")) {user_gender="3d";}
+
+					$("#loginBtn").attr('disabled',true);
+					$("#loginBtn").html("Xin đợi...");
+					socket.emit("client-send-username",{username:$("#username").val(),gender:user_gender});
+
+					}
+				}
+			});
+			//Click nut enter login
+			$("#username").keypress(function (e) {
+			    	
+				    if (e.which == 13) {
+				    	if($("#username").val()==""){
+					alert("Bạn cần nhập tên!");
+					}
+					else{
+						 if(!$('#gender_nam').is(":checked")&&!$('#gender_nu').is(":checked")&&!$('#gender_3d').is(":checked"))
+						{
+							alert("Bạn cần chọn giới tính !!")
+						}
+						else
+						{
+						var user_gender;
+						if($('#gender_nam').is(":checked")) {user_gender="nam";}
+						if($('#gender_nu').is(":checked")) {user_gender="nu";}
+						if($('#gender_3d').is(":checked")) {user_gender="3d";}
+
+						$("#loginBtn").attr('disabled',true);
+						$("#loginBtn").html("Xin đợi...");
+						socket.emit("client-send-username",{username:$("#username").val(),gender:user_gender});
+						}
+					}
+			    }
+			});
+
+
+
+			//Bat  su kien gui message
+			//Click nut enter gui message
+			$("#message").keypress(function (e) {
+			    if (e.which == 13) {
+
+			        socket.emit("user-send-mess",$("#message").val());
+			        $("#message").val('');
+			    }
+			});
+
+
+			$("#sendMess").click(function(){
+					socket.emit("user-send-mess",$("#message").val());
+					$("#message").val('');
+				});
+			//Bat su kien tim nguoi la khac
+			$("#changeStranger").click(function(){
+				socket.emit("user-send-change");
+			});
+			
+			//AJAX MENU
+			$("#trochuyen").click(function(){
+				 $("#changeMe").html('');
+				 $("#chatContent").show();
+
+			});
+
+
+
+
+			$("#timlai").click(function(){
+				$.ajax({url: "timlai.html", success: function(result){
+	              $("#chatContent").hide();
+	              $("#changeMe").html(result);
+
+	          }});
+			});
+
+			$("#dangxuat").click(function(){
+				location.reload();
+			});
 		});
 	</script>
+	
 
+
+	<script type="text/javascript">
+	// 	window.setInterval(function() {
+	//   var elem = document.getElementById('chatBox');
+	//   elem.scrollTop = elem.scrollHeight;
+	// }, 10);
+	</script>
 
 </head>
 <body>
@@ -106,6 +251,7 @@
 				<form class="login100-form validate-form flex-sb flex-w">
 					<span class="login100-form-title p-b-53">
 						Chat với người lạ ...
+
 						<small style="font-size: 30px;">Đăng nhập</small>
 					</span>
 
@@ -124,11 +270,34 @@
 							Tên đăng nhập
 						</span>
 					</div>
+					
+
 					<div class="wrap-input100 validate-input" data-validate = "Username is required">
 						<input id="username" class="input100" type="text" name="username" >
 						<span class="focus-input100"></span>
 					</div>
-					
+					<div class="p-t-31 p-b-9">
+						<span class="txt1">
+							Giới tính
+						</span>
+					</div>
+					<!-- Gioi tinh -->
+					<div style="padding-bottom: 5px;" id="gender">
+					  <label>
+					    <input id="gender_nam" type="radio" class="option-input radio" value="nam"  name="gender"/>
+					    Nam
+					  </label>
+					  <label>
+					    <input id="gender_nu" type="radio" class="option-input radio" value="nu" name="gender"/>
+					    Nữ
+					  </label>
+					  <label>
+					    <input id="gender_3d" type="radio" class="option-input radio" value="3d" name="gender" />
+					    3D
+					  </label>
+					</div>
+				  <!--  -->
+
 				<div class="container-login100-form-btn m-t-17">
 						<button id="loginBtn" class="login100-form-btn">
 							Vào chat
@@ -163,44 +332,68 @@
 
 	<!-- Chat page -->
 	<div id="chatForm" class="container main-section">
-		<div class="row">
-			<div class="col-md-3 col-sm-3 col-xs-12 left-sidebar">
-				<div class="input-group searchbox">
-					<input class="form-control" placeholder="Search" name="srch-term" id="srch-term" type="text">
-					<div class="input-group-btn">
-						<button class="btn btn-default search-icon" type="submit"><i class="glyphicon glyphicon-search"></i></button>
-					</div>
+		<div class="row" class="hidden-sm-down" >
+			<div id="left-sidebar"  class="col-md-3 col-sm-3 col-xs-12 left-sidebar">
+				<div class="input-group searchbox" id="notiboard">
+					<label style="font-size: 35px;">Chat với người lạ</label>
+					<br>
+					<span>Đang online : <i id="countUser">1 </i>	 </span>
+					<i class="fa fa-users"></i>
+					<!-- i style="color:green;" class='fa fa-circle' aria-hidden='true'></i> -->
+				</div>
+				<div>
+					
 				</div>
 				<!-- Danh sach useronline -->
-				<div class="left-chat" >
+				<div id="left-chat" class="left-chat" style="font-size: 25px;" style="overflow-y:hidden;">
 
-					<ul id="onlinelist">
+					<ul>
+					    <li id="trochuyen" ><i  class="fa fa-comments" style="padding-right: 5px;"></i>Trò chuyện</li>
+					    <li id="timlai" ><i style="color: red" class="fa fa-heart" style="padding-right: 5px;"></i> Tìm lại</li>
+					    <li id="confession"  ><i  style="color: white" class="fa fa-pencil" style="padding-right: 5px;"></i> Confession</li>
+					    <br>
+					    
+					    <li data-toggle="modal" data-target="#myModal" id="trogiup" ><i  style="color: white" class="fa fa-question" style="padding-right: 5px;"></i> Trợ giúp</li>
+					    
+					    <li id="dangxuat"  ><i style="color: white" class="fa fa-power-off" style="padding-right: 5px;"></i> Đăng xuất</li>
+					</ul>
+
+
+					<!-- <ul id="onlinelist">
 						
 						  
-					</ul>
+					</ul> -->
 				</div>
 				<!--  -->
 			</div>
 
-			<div class="col-md-9 col-sm-9 col-xs-12 right-sidebar">
-				<!-- Ten username login -->
+			<!-- right sidebar -->
+			<div id="right-sidebar" class="col-md-9 col-sm-9 col-xs-12 right-sidebar">
+				<!-- Ten user truy cap -->
 				<div class="row">
 					<div class="col-md-12 right-header">
 						<div class="right-header-img">
-							<img src="image/businessman.png">
+							<img id="avatar" src="image/businessman.png">
 						</div>
 						<div class="right-header-detail">
 							<p id="name"></p>
-							
+							<span><i style="color:red;" class='fa fa-circle' aria-hidden='true'></i> online</span>
 						</div>
 					</div>
 				</div>
 				<!-- ________________________ -->
 
 				<!-- Noi dung chat -->
+
+				<t id="changeMe">
+					
+				</t>
+
+				<t id="chatContent">
 				<div class="row">
-					<div class="col-md-12 right-header-contentChat">
+					<div class="col-md-12 right-header-contentChat" id="chatBox">
 						<ul id="messBox">
+							<div id="blink" class="blink"><span>Đang chờ người lạ ...</span></div>
 							<!-- <li>
 								<div class="rightside-left-chat">
 									<span><i class="fa fa-circle" aria-hidden="true"></i> joi chak <small>10:00 AM,Today</small> </span><br><br>
@@ -222,19 +415,86 @@
 				</div>
 				<div class="row">
 					<div class="col-md-12 right-chat-textbox">
-						<input id="message" type="text"><a style="cursor: pointer;" id="sendMess" ><i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+						<input  id="message" type="text" placeholder='Hãy nói gì đó!' style="width: 70%;border-radius: 25px;font-style: italic;">
+
+						<a style="cursor: pointer;" >
+							<i data-toggle="tooltip" title="Thả tim"  style="color:red;font-size: 15px;" class="fa fa-heart"></i>
+						</a>
+
+						<a style="cursor: pointer;" id="sendMess" ><i data-toggle="tooltip" title="Gửi"  class="fa fa-arrow-right" aria-hidden="true"></i></a>
+
+						
+
+						<a style="cursor: pointer" id="changeStranger" >
+							<i data-toggle="tooltip" title="Tìm người lạ khác"  style="color:green;" class="fa fa-recycle"></i>
+						</a>
+
+						
+						
 					</div>
+				
 				</div>
+				</t>
+				<div style="background-color: white;width: 100%;height: 60px; text-align: center;font-size: 40px;">
+						
+						<i style="cursor: pointer;" class="fa fa-google-plus"></i>
+						<i style="cursor: pointer;" class="fa fa-facebook-square"></i>
+						<i  style="cursor: pointer;" class="fa fa-twitter-square"></i>
+
+
+
+
+				</div>
+
 			</div>
 		</div>
 	</div>
 
 	<script type="text/javascript">
+
 		$(document).ready(function(){
 	    	var height = $(window).height();
 	    	$('.left-chat').css('height', (height - 92) + 'px');
 	    	$('.right-header-contentChat').css('height', (height - 163) + 'px');
 	    });
 	</script>
+	 
+	<!-- Modal trợ giúp-->
+  <div class="modal fade" id="myModal" role="dialog" style="width: 60%%;">
+    
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header" >
+          
+          <h1 class="modal-title">Trợ giúp</h1>
+          
+        </div>
+        <div class="modal-body">
+          <p>Tôi có sợ bị lộ thông tin không?</p>
+          <p>Không, trừ khi bạn là 3D</p>
+          
+          <hr>
+          
+          <p>Làm sao tìm lại người lạ?</p>
+          <p>Sử dụng confession</p>
+          
+          <hr>
+          <br>
+          <p>Tôi muốn góp ý?</p>
+          <p>Vui lòng gửi về hòm thư abcxyz@xxxmail.com</p>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Thoát</button>
+        </div>
+      </div>
+      
+   
+	</div>
+  </div>
+
+
 </body>
 </html>

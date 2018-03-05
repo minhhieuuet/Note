@@ -23,7 +23,7 @@
   float: left;
 }
 .left-chat{
-  overflow-y:scroll;
+  overflow-y:hidden;
 }
 .left-chat ul{
   overflow: hidden;
